@@ -25,11 +25,7 @@ exports.load = function(req, res, next, quizId) {
 exports.index = function(req, res) {
 	var _patron = req.query.busq || "";
 	 _patron = "%" + _patron.replace(/\s/gi, "%") + "%";
-	 // Objeto que modela una pseudo clausula WHERE de SQL
-	var _busqueda = {
-    // El comodin "?" de la expresión de la primera posición
-    // del array se sustituye por el contenido de la segunda posición
-    where: ["pregunta like ?", _patron]};
+	var _busqueda = {where: ["pregunta like ?", _patron]};
 
   models.Quiz.findAll(_busqueda).then(
     function(quizes) {
