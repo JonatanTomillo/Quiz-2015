@@ -23,6 +23,7 @@ var sequelize = new Sequelize(DB_name,user,pwd,
     }
 );
 
+
 // Importar la definicion de la traba Quiz en quiz.js
 var Quiz = sequelize.import(path.join(__dirname,'quiz'));
 
