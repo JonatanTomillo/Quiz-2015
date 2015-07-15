@@ -41,6 +41,26 @@ app.use(function(req, res, next){
     next();
 });
 
+//MW Auto-logout 2min
+//session auto-logout
+app.use(function(req, res, next){
+
+    if(req.session.user){
+        var now = new Date().getTime();
+        lastInteraction = req.session.lastInteraction;
+
+        if (lastInteraction && (now - lastInteraction) > 120000){
+            delete req.session.user;
+            res.redirect("/login");
+        }else{
+            req.session.lastInteraction = new Date().getTime();
+            res.locals.session = req.session;
+        }
+    }
+
+    next();
+});
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
